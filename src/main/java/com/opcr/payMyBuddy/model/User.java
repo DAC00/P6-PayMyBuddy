@@ -33,4 +33,13 @@ public class User {
     )
     private List<User> userConnections = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
 }
