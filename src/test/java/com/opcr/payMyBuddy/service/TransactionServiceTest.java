@@ -1,6 +1,6 @@
 package com.opcr.payMyBuddy.service;
 
-import com.opcr.payMyBuddy.exception.UserDoesNotExistException;
+import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
 import com.opcr.payMyBuddy.model.Transaction;
 import com.opcr.payMyBuddy.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,8 @@ public class TransactionServiceTest {
 
     @Test
     public void getTransactionSentTest() throws Exception {
-        List<Transaction> transactions = transactionService.getTransactionSent(1);
+        String emailUser = "alice@mail.com";
+        List<Transaction> transactions = transactionService.getTransactionSent(emailUser);
         assertEquals(2, transactions.size());
         assertEquals("Transaction 1", transactions.getFirst().getDescription());
         assertEquals(100, transactions.getFirst().getAmount());
@@ -34,17 +35,19 @@ public class TransactionServiceTest {
 
     @Test
     public void getTransactionSentUserDoesExist() {
-        Integer userId = 99;
-        UserDoesNotExistException exception = assertThrows(UserDoesNotExistException.class,
-                () -> transactionService.getTransactionSent(userId));
-        assertEquals("User with id %s not found.".formatted(userId), exception.getMessage());
+        String emailUser = "test@test.test";
+        BuddyUserDoesNotExistException exception = assertThrows(BuddyUserDoesNotExistException.class,
+                () -> transactionService.getTransactionSent(emailUser));
+        assertEquals("BuddyUser : %s not found.".formatted(emailUser), exception.getMessage());
     }
 
     @Test
     public void addTransactionTest() throws Exception {
-        transactionService.addTransaction(1, 2, "TEST", 99);
+        String emailSender = "alice@mail.com";
+        String emailReceiver = "bob@mail.com";
+        transactionService.addTransaction(emailSender, emailReceiver, "TEST", 99);
 
-        Transaction newTransaction = transactionService.getTransactionSent(1).stream()
+        Transaction newTransaction = transactionService.getTransactionSent(emailSender).stream()
                 .filter(transaction -> transaction.getDescription().equals("TEST")).findFirst().orElse(null);
         assertNotNull(newTransaction);
         assertEquals(2, newTransaction.getReceiver().getId());
@@ -56,17 +59,19 @@ public class TransactionServiceTest {
 
     @Test
     public void addTransactionWhenSenderDoesNotExistTest() {
-        Integer senderId = 99;
-        UserDoesNotExistException exception = assertThrows(UserDoesNotExistException.class,
-                () -> transactionService.addTransaction(senderId, 1, "TEST", 100));
-        assertEquals("Sender with id %s not found.".formatted(senderId), exception.getMessage());
+        String emailSender = "test@test.test";
+        String emailReceiver = "alice@mail.com";
+        BuddyUserDoesNotExistException exception = assertThrows(BuddyUserDoesNotExistException.class,
+                () -> transactionService.addTransaction(emailSender, emailReceiver, "TEST", 100));
+        assertEquals("Sender %s not found.".formatted(emailSender), exception.getMessage());
     }
 
     @Test
     public void addTransactionWhenReceiverDoesNotExistTest() {
-        Integer receiverId = 99;
-        UserDoesNotExistException exception = assertThrows(UserDoesNotExistException.class,
-                () -> transactionService.addTransaction(1, receiverId, "TEST", 100));
-        assertEquals("Receiver with id %s not found.".formatted(receiverId), exception.getMessage());
+        String emailSender = "alice@mail.com";
+        String emailReceiver = "test@test.test";
+        BuddyUserDoesNotExistException exception = assertThrows(BuddyUserDoesNotExistException.class,
+                () -> transactionService.addTransaction(emailSender, emailReceiver, "TEST", 100));
+        assertEquals("Receiver %s not found.".formatted(emailReceiver), exception.getMessage());
     }
 }

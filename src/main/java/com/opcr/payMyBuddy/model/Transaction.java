@@ -21,10 +21,10 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
-    private User sender;
+    private BuddyUser sender;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id")
-    private User receiver;
+    private BuddyUser receiver;
 
 }

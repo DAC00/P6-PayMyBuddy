@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class BuddyUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +31,11 @@ public class User {
             joinColumns = @JoinColumn(name = "id_first_user"),
             inverseJoinColumns = @JoinColumn(name = "id_second_user")
     )
-    private List<User> userConnections = new ArrayList<>();
+    private List<BuddyUser> buddyUserConnections = new ArrayList<>();
 
     @Override
     public String toString() {
-        return "User{" +
+        return "BuddyUser{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
