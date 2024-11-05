@@ -1,7 +1,7 @@
 package com.opcr.payMyBuddy.service;
 
-import com.opcr.payMyBuddy.exception.EmailAlreadyExistsException;
 import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
+import com.opcr.payMyBuddy.exception.EmailAlreadyExistsException;
 import com.opcr.payMyBuddy.model.BuddyUser;
 import com.opcr.payMyBuddy.repository.BuddyUserRepository;
 import org.apache.logging.log4j.LogManager;
@@ -20,10 +20,6 @@ public class BuddyUserService {
     private PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LogManager.getLogger(BuddyUserService.class);
-
-    public Iterable<BuddyUser> getUsers() {
-        return buddyUserRepository.findAll();
-    }
 
     /**
      * Add a new BuddyUser in the database. The email of the new BuddyUser must be unique or an exception is thrown.
@@ -56,8 +52,8 @@ public class BuddyUserService {
      * @param updatedUserName new username.
      * @param updatedEmail    new email, must not already exist in the database.
      * @param UpdatePassword  new password.
-     * @throws EmailAlreadyExistsException if the email is already used.
-     * @throws BuddyUserDoesNotExistException   if the BuddyUser doesn't exist.
+     * @throws EmailAlreadyExistsException    if the email is already used.
+     * @throws BuddyUserDoesNotExistException if the BuddyUser doesn't exist.
      */
     public void updateUser(String userEmail, String updatedUserName, String updatedEmail, String UpdatePassword) throws EmailAlreadyExistsException, BuddyUserDoesNotExistException {
         BuddyUser buddyUser = buddyUserRepository.findByEmail(userEmail);
