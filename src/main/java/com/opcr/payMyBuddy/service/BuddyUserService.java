@@ -1,5 +1,7 @@
 package com.opcr.payMyBuddy.service;
 
+import com.opcr.payMyBuddy.exception.BuddyUserAlreadyConnectedWithException;
+import com.opcr.payMyBuddy.exception.BuddyUserConnectWithHimselfException;
 import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
 import com.opcr.payMyBuddy.exception.EmailAlreadyExistsException;
 import com.opcr.payMyBuddy.model.BuddyUser;
@@ -31,17 +33,13 @@ public class BuddyUserService {
      */
     public void addUser(String userName, String email, String password) throws EmailAlreadyExistsException {
         if (doesUserExist(email)) {
-            String errorMessage = "Email already taken : %s.".formatted(email);
-            logger.error(errorMessage);
-            throw new EmailAlreadyExistsException(errorMessage);
+            throw new EmailAlreadyExistsException("Email already taken : %s.".formatted(email));
         } else {
             BuddyUser newBuddyUser = new BuddyUser();
             newBuddyUser.setUsername(userName);
             newBuddyUser.setEmail(email);
             newBuddyUser.setPassword(passwordEncoder.encode(password));
-
             buddyUserRepository.save(newBuddyUser);
-            logger.info("BuddyUser added : %s.".formatted(newBuddyUser.toString()));
         }
     }
 
@@ -58,14 +56,10 @@ public class BuddyUserService {
     public void updateUser(String userEmail, String updatedUserName, String updatedEmail, String UpdatePassword) throws EmailAlreadyExistsException, BuddyUserDoesNotExistException {
         BuddyUser buddyUser = buddyUserRepository.findByEmail(userEmail);
         if (buddyUser == null) {
-            String errorMessage = "BuddyUser does not exist : %s.".formatted(userEmail);
-            logger.error(errorMessage);
-            throw new BuddyUserDoesNotExistException(errorMessage);
+            throw new BuddyUserDoesNotExistException("BuddyUser does not exist : %s.".formatted(userEmail));
         } else {
             if (doesUserExist(updatedEmail) && buddyUserRepository.findByEmail(updatedEmail).getId() != buddyUser.getId()) {
-                String errorMessage = "Email already taken : %s.".formatted(updatedEmail);
-                logger.error(errorMessage);
-                throw new EmailAlreadyExistsException(errorMessage);
+                throw new EmailAlreadyExistsException("Email already taken : %s.".formatted(updatedEmail));
             } else {
                 buddyUser.setUsername(updatedUserName);
                 buddyUser.setEmail(updatedEmail);
@@ -81,24 +75,25 @@ public class BuddyUserService {
      * @param userEmail          email of the BuddyUser who create the connection.
      * @param emailToConnectWith email of the BuddyUser to connect with.
      * @throws BuddyUserDoesNotExistException if one of the two BuddyUser does not exist.
+     * @throws BuddyUserAlreadyConnectedWithException if the two BuddyUser are already connected.
      */
-    public void addConnectionToUser(String userEmail, String emailToConnectWith) throws BuddyUserDoesNotExistException {
+    public void addConnectionToUser(String userEmail, String emailToConnectWith)
+            throws BuddyUserDoesNotExistException, BuddyUserAlreadyConnectedWithException, BuddyUserConnectWithHimselfException {
         BuddyUser buddyUser = buddyUserRepository.findByEmail(userEmail);
         BuddyUser buddyUserToConnectWith = buddyUserRepository.findByEmail(emailToConnectWith);
         if (buddyUser == null) {
-            String errorMessage = "BuddyUser does not exist : %s.".formatted(userEmail);
-            logger.error(errorMessage);
-            throw new BuddyUserDoesNotExistException(errorMessage);
+            throw new BuddyUserDoesNotExistException("BuddyUser does not exist : %s.".formatted(userEmail));
         } else if (buddyUserToConnectWith == null) {
-            String errorMessage = "BuddyUser to connect with does not found : %s.".formatted(emailToConnectWith);
-            logger.error(errorMessage);
-            throw new BuddyUserDoesNotExistException(errorMessage);
+            throw new BuddyUserDoesNotExistException("BuddyUser to connect with does not found : %s.".formatted(emailToConnectWith));
+        } else if (userEmail.equals(emailToConnectWith)) {
+            throw new BuddyUserConnectWithHimselfException("BuddyUser try to connect with himself : %s".formatted(userEmail));
+        } else if (buddyUser.getBuddyUserConnections().stream().anyMatch(b -> b.getEmail().equals(buddyUserToConnectWith.getEmail()))) {
+            throw new BuddyUserAlreadyConnectedWithException("BuddyUser already connected with : %s.".formatted(emailToConnectWith));
         } else {
             buddyUser.getBuddyUserConnections().add(buddyUserToConnectWith);
             buddyUserToConnectWith.getBuddyUserConnections().add(buddyUser);
             buddyUserRepository.save(buddyUser);
             buddyUserRepository.save(buddyUserToConnectWith);
-            logger.info("Connection between : %s && %s added.".formatted(buddyUser.getId(), buddyUserToConnectWith.getId()));
         }
     }
 
