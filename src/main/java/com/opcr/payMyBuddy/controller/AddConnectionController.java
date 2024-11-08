@@ -25,28 +25,29 @@ public class AddConnectionController {
 
     @GetMapping("/add_connection")
     public String addConnectionView(Model model) {
-        model.addAttribute("buddyuser", new BuddyUser());
+        model.addAttribute("buddyUser", new BuddyUser());
         return "add_connection";
     }
 
     @PostMapping("/add_connection")
-    public String addConnectionBetweenUsers(@ModelAttribute("buddyuser") BuddyUser userToConnectWith, Model model) {
+    public String addConnectionBetweenUsers(@ModelAttribute("buddyUser") BuddyUser userToConnectWith, Model model) {
         String emailUser = SecurityContextHolder.getContext().getAuthentication().getName();
         logger.info("POST : Trying to connect %s & %s.".formatted(emailUser, userToConnectWith.getEmail()));
         try {
             buddyUserService.addConnectionToUser(emailUser, userToConnectWith.getEmail());
+            model.addAttribute("returnMessage","Connection added.");
             logger.info("POST : Connection added between %s & %s.".formatted(emailUser, userToConnectWith.getEmail()));
             return "add_connection";
         } catch (BuddyUserDoesNotExistException e) {
-            model.addAttribute("errorMessage", "User not found.");
+            model.addAttribute("returnMessage", "User not found.");
             logger.error(e.getMessage());
             return "add_connection";
         } catch (BuddyUserAlreadyConnectedWithException e) {
-            model.addAttribute("errorMessage", "Already a connection.");
+            model.addAttribute("returnMessage", "Already a connection.");
             logger.error(e.getMessage());
             return "add_connection";
         } catch (BuddyUserConnectWithHimselfException e) {
-            model.addAttribute("errorMessage", "Can't connect with yourself.");
+            model.addAttribute("returnMessage", "Can't connect with yourself.");
             logger.error(e.getMessage());
             return "add_connection";
         }

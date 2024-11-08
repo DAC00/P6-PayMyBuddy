@@ -33,7 +33,7 @@ public class SignupController {
             logger.info("New user created : %s".formatted(newBuddyUser.getEmail()));
             return "redirect:/login";
         } catch (EmailAlreadyExistsException e) {
-            model.addAttribute("errorMessage", "Email already taken.");
+            model.addAttribute("returnMessage", "Email already taken.");
             logger.error(e.getMessage());
             return "signup";
         }

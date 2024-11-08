@@ -15,10 +15,10 @@
 
         <input type="password" placeholder="Mot de passe" required th:field="*{password}"/><br>
 
-        <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+        <button type="submit">S'inscrire</button><br>
 
-        <button type="submit">S'inscrire</button>
     </form>
+    <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>
 </body>
 </html>

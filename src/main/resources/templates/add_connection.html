@@ -18,11 +18,11 @@
 <body>
 <div>
     <h1>Chercher une relation</h1>
-    <form th:action="@{/add_connection}" th:object="${buddyuser}" action="#" method="post">
+    <form th:action="@{/add_connection}" th:object="${buddyUser}" action="#" method="post">
         <input th:value="*{email}" type="email" name="email" placeholder="Saisir une adresse mail" required/>
         <button type="submit">Ajouter</button>
-        <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
     </form>
+    <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>
 </body>
 </html>
