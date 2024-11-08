@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <title>Transférer</title>
+</head>
+<body>
+<header>
+    <nav>
+        <h1>Pay My Buddy</h1>
+        <ul>
+            <li><a th:href="@{/transaction}">Transférer</a></li>
+            <li><a th:href="@{/profile}">Profil</a></li>
+            <li><a th:href="@{/add_connection}">Ajouter relation</a></li>
+            <li><a th:href="@{/logout}">Se déconnecter</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div>
+    <form th:action="@{/transaction}" method="post">
+        <select name="receiver" required>
+            <option selected disabled>Sélectionner une relation</option>
+            <option th:each="user : ${buddyUser}"
+                    th:value="${user.email}"
+                    th:text="${user.username}"></option>
+        </select>
+        <input type="text" name="description" placeholder="Description" required>
+        <input type="number" name="amount" min="0" placeholder="0€">
+        <button type="submit">Payer</button>
+    </form>
+    <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
+</div>
+
+<div>
+    <label>Mes transactions</label>
+    <table>
+        <thead>
+        <tr>
+            <th>Relations</th>
+            <th>Description</th>
+            <th>Montant</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tranSend : ${transactionSend}">
+            <th th:text="${tranSend.receiver.username}"></th>
+            <th th:text="${tranSend.description}"></th>
+            <th th:text="${tranSend.amount}"></th>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

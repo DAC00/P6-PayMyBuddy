@@ -1,10 +1,10 @@
 package com.opcr.payMyBuddy.service;
 
 import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
-import com.opcr.payMyBuddy.model.Transaction;
 import com.opcr.payMyBuddy.model.BuddyUser;
-import com.opcr.payMyBuddy.repository.TransactionRepository;
+import com.opcr.payMyBuddy.model.Transaction;
 import com.opcr.payMyBuddy.repository.BuddyUserRepository;
+import com.opcr.payMyBuddy.repository.TransactionRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +33,7 @@ public class TransactionService {
     public List<Transaction> getTransactionSent(String emailUser) throws BuddyUserDoesNotExistException {
         BuddyUser buddyUser = buddyUserRepository.findByEmail(emailUser);
         if (buddyUser == null) {
-            String errorMessage = "BuddyUser : %s not found.".formatted(emailUser);
-            logger.error(errorMessage);
-            throw new BuddyUserDoesNotExistException(errorMessage);
+            throw new BuddyUserDoesNotExistException("BuddyUser : %s not found.".formatted(emailUser));
         }
         return transactionRepository.findBySenderId(buddyUser.getId());
     }
@@ -55,13 +53,9 @@ public class TransactionService {
         BuddyUser receiver = buddyUserRepository.findByEmail(emailReceiver);
 
         if (sender == null) {
-            String errorMessage = "Sender %s not found.".formatted(emailSender);
-            logger.error(errorMessage);
-            throw new BuddyUserDoesNotExistException(errorMessage);
+            throw new BuddyUserDoesNotExistException("Sender %s not found.".formatted(emailSender));
         } else if (receiver == null) {
-            String errorMessage = "Receiver %s not found.".formatted(emailReceiver);
-            logger.error(errorMessage);
-            throw new BuddyUserDoesNotExistException(errorMessage);
+            throw new BuddyUserDoesNotExistException("Receiver %s not found.".formatted(emailReceiver));
         } else {
             Transaction newTransaction = new Transaction();
             newTransaction.setDescription(description);
