@@ -6,8 +6,6 @@ import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
 import com.opcr.payMyBuddy.exception.EmailAlreadyExistsException;
 import com.opcr.payMyBuddy.model.BuddyUser;
 import com.opcr.payMyBuddy.repository.BuddyUserRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,8 +18,6 @@ public class BuddyUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    private static final Logger logger = LogManager.getLogger(BuddyUserService.class);
 
     /**
      * Add a new BuddyUser in the database. The email of the new BuddyUser must be unique or an exception is thrown.
@@ -74,7 +70,7 @@ public class BuddyUserService {
      *
      * @param userEmail          email of the BuddyUser who create the connection.
      * @param emailToConnectWith email of the BuddyUser to connect with.
-     * @throws BuddyUserDoesNotExistException if one of the two BuddyUser does not exist.
+     * @throws BuddyUserDoesNotExistException         if one of the two BuddyUser does not exist.
      * @throws BuddyUserAlreadyConnectedWithException if the two BuddyUser are already connected.
      */
     public void addConnectionToUser(String userEmail, String emailToConnectWith)
@@ -95,6 +91,16 @@ public class BuddyUserService {
             buddyUserRepository.save(buddyUser);
             buddyUserRepository.save(buddyUserToConnectWith);
         }
+    }
+
+    /**
+     * Get the BuddyUser with email in param.
+     *
+     * @param email of the user.
+     * @return a BuddyUser.
+     */
+    public BuddyUser getBuddyUser(String email) {
+        return buddyUserRepository.findByEmail(email);
     }
 
     /**
