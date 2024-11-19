@@ -2,6 +2,7 @@
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/main.css}" rel="stylesheet" />
     <title>Inscription</title>
 </head>
 <body>
@@ -13,6 +14,7 @@
         <input type="password" placeholder="Mot de passe" required th:field="*{password}"/><br>
         <button type="submit">S'inscrire</button><br>
     </form>
+    <a th:href="@{/login}" title="Se connecter">Se connecter</a>
     <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>
 </body>

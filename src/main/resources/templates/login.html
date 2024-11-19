@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <link th:href="@{/main.css}" rel="stylesheet"/>
     <title>Connexion</title>
 </head>
 <body>
@@ -11,6 +13,7 @@
         <input type="password" name="password" placeholder="Mot de passe" required/><br/>
         <input type="submit" value="Se connecter"/><br/>
     </form>
+    <a th:href="@{/signup}" title="S'inscrire">S'inscrire</a>
     <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>
 </body>
