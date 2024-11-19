@@ -10,10 +10,14 @@
     <nav>
         <h1>Pay My Buddy</h1>
         <ul>
-            <li><a th:href="@{/transaction}">Transférer</a></li>
+            <li><a href="#">Transférer</a></li>
             <li><a th:href="@{/profile}">Profil</a></li>
             <li><a th:href="@{/add_connection}">Ajouter relation</a></li>
-            <li><a th:href="@{/logout}">Se déconnecter</a></li>
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Se déconnecter</button>
+                </form>
+            </li>
         </ul>
     </nav>
 </header>
@@ -21,13 +25,13 @@
 <div>
     <form th:action="@{/transaction}" method="post">
         <select name="receiver" required>
-            <option selected disabled>Sélectionner une relation</option>
+            <option selected disabled value="">Sélectionner une relation</option>
             <option th:each="user : ${buddyUser}"
                     th:value="${user.email}"
                     th:text="${user.username}"></option>
         </select>
         <input type="text" name="description" placeholder="Description" required>
-        <input type="number" name="amount" min="0" placeholder="0€">
+        <input type="number" name="amount" min="0" placeholder="0€" required>
         <button type="submit">Payer</button>
     </form>
     <p th:if="${returnMessage}" th:text="${returnMessage}"></p>

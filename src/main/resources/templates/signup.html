@@ -7,16 +7,11 @@
 <body>
 <div>
     <p>Pay My Buddy</p>
-    <form action="#" th:action="@{/signup}" th:object="${buddyuser}" method="post">
-
+    <form action="#" th:action="@{/signup}" th:object="${buddyUser}" method="post">
         <input type="text" placeholder="Username" required th:field="*{username}"/><br>
-
         <input type="email" placeholder="Mail" required th:field="*{email}"/><br>
-
         <input type="password" placeholder="Mot de passe" required th:field="*{password}"/><br>
-
         <button type="submit">S'inscrire</button><br>
-
     </form>
     <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>

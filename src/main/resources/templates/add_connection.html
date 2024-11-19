@@ -10,14 +10,18 @@
         <ul>
             <li><a th:href="@{/transaction}">Transférer</a></li>
             <li><a th:href="@{/profile}">Profil</a></li>
-            <li><a th:href="@{/add_connection}">Ajouter relation</a></li>
-            <li><a th:href="@{/logout}">Se déconnecter</a></li>
+            <li><a href="#">Ajouter relation</a></li>
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Se déconnecter</button>
+                </form>
+            </li>
         </ul>
     </nav>
 </header>
 <body>
 <div>
-    <h1>Chercher une relation</h1>
+    <p>Chercher une relation</p>
     <form th:action="@{/add_connection}" th:object="${buddyUser}" action="#" method="post">
         <input th:value="*{email}" type="email" name="email" placeholder="Saisir une adresse mail" required/>
         <button type="submit">Ajouter</button>
