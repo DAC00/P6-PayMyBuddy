@@ -2,25 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/main.css}" rel="stylesheet" />
     <title>Profil</title>
 </head>
-
 <body>
-<header>
-    <nav>
-        <h1>Pay My Buddy</h1>
-        <ul>
-            <li><a th:href="@{/transaction}">Transférer</a></li>
-            <li><a href="#">Profil</a></li>
-            <li><a th:href="@{/add_connection}">Ajouter relation</a></li>
-            <li>
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit">Se déconnecter</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-</header>
+<nav class="header">
+    <div class="name">Pay My Buddy</div>
+    <ul class="header-list">
+        <li><a th:href="@{/transaction}">Transférer</a></li>
+        <li><a class="active" href="#">Profil</a></li>
+        <li><a th:href="@{/add_connection}">Ajouter relation</a></li>
+        <li>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="bt-logout">Se déconnecter</button>
+            </form>
+        </li>
+    </ul>
+</nav>
 <div>
     <form action="#" th:action="@{/profile}" th:object="${buddyUser}" method="post">
         <div>

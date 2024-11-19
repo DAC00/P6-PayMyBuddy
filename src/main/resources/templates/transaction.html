@@ -6,22 +6,19 @@
     <title>Transférer</title>
 </head>
 <body>
-<header>
-    <nav>
-        <h1>Pay My Buddy</h1>
-        <ul>
-            <li><a href="#">Transférer</a></li>
-            <li><a th:href="@{/profile}">Profil</a></li>
-            <li><a th:href="@{/add_connection}">Ajouter relation</a></li>
-            <li>
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit">Se déconnecter</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-</header>
-
+<nav class="header">
+    <div class="name">Pay My Buddy</div>
+    <ul class="header-list">
+        <li><a class="active" href="#">Transférer</a></li>
+        <li><a th:href="@{/profile}">Profil</a></li>
+        <li><a th:href="@{/add_connection}">Ajouter relation</a></li>
+        <li>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="bt-logout">Se déconnecter</button>
+            </form>
+        </li>
+    </ul>
+</nav>
 <div>
     <form th:action="@{/transaction}" method="post">
         <select name="receiver" required>

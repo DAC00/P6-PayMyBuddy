@@ -1,0 +1,38 @@
+body {
+    font-family: Inter;
+    font-size: 20px;
+    color: #000000;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 25px;
+}
+
+.header-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 50px;
+}
+
+.header-list a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.header-list .active {
+    color: #207FEE;
+    text-decoration: none;
+}
+
+.bt-logout {
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+}
