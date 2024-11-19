@@ -29,17 +29,7 @@ public class TransactionController {
 
     @GetMapping("/transaction")
     public String transactionView(Model model) {
-
-        try {
-            String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-            List<Transaction> transactionList = transactionService.getTransactionSent(userEmail);
-
-            model.addAttribute("buddyUser", buddyUserService.getBuddyUser(userEmail).getBuddyUserConnections());
-            model.addAttribute("transactionSend", transactionList);
-
-        } catch (BuddyUserDoesNotExistException e) {
-            logger.error(e.getMessage());
-        }
+        fillTransactionList(model);
         return "transaction";
     }
 
@@ -49,10 +39,22 @@ public class TransactionController {
         try {
             transactionService.addTransaction(SecurityContextHolder.getContext().getAuthentication().getName(), receiver, description, amount);
             model.addAttribute("returnMessage", "Transaction sent.");
+            fillTransactionList(model);
         } catch (BuddyUserDoesNotExistException e) {
             model.addAttribute("returnMessage", "Error.");
             logger.error(e.getMessage());
         }
-        return "redirect:/transaction";
+        return "transaction";
+    }
+
+    private void fillTransactionList(Model model) {
+        try {
+            String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+            List<Transaction> transactionList = transactionService.getTransactionSent(userEmail);
+            model.addAttribute("buddyUser", buddyUserService.getBuddyUser(userEmail).getBuddyUserConnections());
+            model.addAttribute("transactionSend", transactionList);
+        } catch (BuddyUserDoesNotExistException e) {
+            logger.error(e.getMessage());
+        }
     }
 }
