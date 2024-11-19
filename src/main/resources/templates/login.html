@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Connexion</title>
+</head>
+<body>
+<div>
+    <h1>Pay My Buddy</h1>
+    <form th:action="@{/login}" method="post">
+        <input type="email" name="username" placeholder="Mail" required/><br/>
+        <input type="password" name="password" placeholder="Mot de passe" required/><br/>
+        <input type="submit" value="Se connecter"/><br/>
+    </form>
+    <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
+</div>
+</body>
+</html>
