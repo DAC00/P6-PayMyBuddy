@@ -35,19 +35,19 @@ public class AddConnectionController {
         logger.info("POST : Trying to connect %s & %s.".formatted(emailUser, userToConnectWith.getEmail()));
         try {
             buddyUserService.addConnectionToUser(emailUser, userToConnectWith.getEmail());
-            model.addAttribute("returnMessage","Connection added.");
+            model.addAttribute("returnMessage","Relation ajouté.");
             logger.info("POST : Connection added between %s & %s.".formatted(emailUser, userToConnectWith.getEmail()));
             return "add_connection";
         } catch (BuddyUserDoesNotExistException e) {
-            model.addAttribute("returnMessage", "User not found.");
+            model.addAttribute("returnMessage", "L'utilisateur n'existe pas.");
             logger.error(e.getMessage());
             return "add_connection";
         } catch (BuddyUserAlreadyConnectedWithException e) {
-            model.addAttribute("returnMessage", "Already a connection.");
+            model.addAttribute("returnMessage", "La relation existe déjà.");
             logger.error(e.getMessage());
             return "add_connection";
         } catch (BuddyUserConnectWithHimselfException e) {
-            model.addAttribute("returnMessage", "Can't connect with yourself.");
+            model.addAttribute("returnMessage", "Relation impossible.");
             logger.error(e.getMessage());
             return "add_connection";
         }
