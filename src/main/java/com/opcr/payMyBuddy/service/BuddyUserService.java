@@ -9,6 +9,7 @@ import com.opcr.payMyBuddy.repository.BuddyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BuddyUserService {
@@ -27,6 +28,7 @@ public class BuddyUserService {
      * @param password password of the new BuddyUser.
      * @throws EmailAlreadyExistsException if the email is already used.
      */
+    @Transactional
     public void addUser(String userName, String email, String password) throws EmailAlreadyExistsException {
         if (doesUserExist(email)) {
             throw new EmailAlreadyExistsException("Email already taken : %s.".formatted(email));
@@ -41,15 +43,17 @@ public class BuddyUserService {
 
     /**
      * Update the information of the BuddyUser. The input must not be null and the email must not be unique to the BuddyUser.
+     * The buddyUser is updated if at least one parameter is different from before and not blank.
      *
      * @param userEmail       email the BuddyUser to update.
      * @param updatedUserName new username.
      * @param updatedEmail    new email, must not already exist in the database.
-     * @param UpdatePassword  new password.
+     * @param updatePassword  new password.
      * @throws EmailAlreadyExistsException    if the email is already used.
      * @throws BuddyUserDoesNotExistException if the BuddyUser doesn't exist.
      */
-    public void updateUser(String userEmail, String updatedUserName, String updatedEmail, String UpdatePassword) throws EmailAlreadyExistsException, BuddyUserDoesNotExistException {
+    @Transactional
+    public void updateUser(String userEmail, String updatedUserName, String updatedEmail, String updatePassword) throws EmailAlreadyExistsException, BuddyUserDoesNotExistException {
         BuddyUser buddyUser = buddyUserRepository.findByEmail(userEmail);
         if (buddyUser == null) {
             throw new BuddyUserDoesNotExistException("BuddyUser does not exist : %s.".formatted(userEmail));
@@ -57,10 +61,15 @@ public class BuddyUserService {
             if (doesUserExist(updatedEmail) && buddyUserRepository.findByEmail(updatedEmail).getId() != buddyUser.getId()) {
                 throw new EmailAlreadyExistsException("Email already taken : %s.".formatted(updatedEmail));
             } else {
-                buddyUser.setUsername(updatedUserName);
-                buddyUser.setEmail(updatedEmail);
-                buddyUser.setPassword(passwordEncoder.encode(UpdatePassword));
-                buddyUserRepository.save(buddyUser);
+                if (!updatedUserName.equals(buddyUser.getUsername()) && !updatedUserName.isBlank()
+                        || !updatedEmail.equals(buddyUser.getEmail()) && !updatedEmail.isBlank()
+                        || !passwordEncoder.matches(updatePassword, buddyUser.getPassword()) && !updatePassword.isBlank()) {
+
+                    if (!updatedUserName.isBlank()) buddyUser.setUsername(updatedUserName);
+                    if (!updatedEmail.isBlank()) buddyUser.setEmail(updatedEmail);
+                    if (!updatePassword.isBlank()) buddyUser.setPassword(passwordEncoder.encode(updatePassword));
+                    buddyUserRepository.save(buddyUser);
+                }
             }
         }
     }
@@ -73,6 +82,7 @@ public class BuddyUserService {
      * @throws BuddyUserDoesNotExistException         if one of the two BuddyUser does not exist.
      * @throws BuddyUserAlreadyConnectedWithException if the two BuddyUser are already connected.
      */
+    @Transactional
     public void addConnectionToUser(String userEmail, String emailToConnectWith)
             throws BuddyUserDoesNotExistException, BuddyUserAlreadyConnectedWithException, BuddyUserConnectWithHimselfException {
         BuddyUser buddyUser = buddyUserRepository.findByEmail(userEmail);

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class TransactionService {
      * @param amount        the amount of the transaction.
      * @throws BuddyUserDoesNotExistException if one of the BuddyUser does not exist.
      **/
+    @Transactional
     public void addTransaction(String emailSender, String emailReceiver, String description, double amount) throws BuddyUserDoesNotExistException {
         BuddyUser sender = buddyUserRepository.findByEmail(emailSender);
         BuddyUser receiver = buddyUserRepository.findByEmail(emailReceiver);
