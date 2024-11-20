@@ -25,6 +25,7 @@ public class SpringSecurityConfig {
         return http
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/signup","/logout").permitAll();
+                    registry.requestMatchers("/css/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
 
