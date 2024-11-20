@@ -2,19 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/main.css}" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
     <title>Connexion</title>
 </head>
 <body>
-<div>
-    <h1>Pay My Buddy</h1>
-    <form th:action="@{/login}" method="post">
-        <input type="email" name="username" placeholder="Mail" required/><br/>
-        <input type="password" name="password" placeholder="Mot de passe" required/><br/>
-        <input type="submit" value="Se connecter"/><br/>
+<div class="login-content">
+    <form class="login-form" th:action="@{/login}" method="post">
+        <h1 class="login-title">Pay My Buddy</h1>
+        <input class="login-item" type="email" name="username" placeholder="Mail" required/>
+        <input class="login-item" type="password" name="password" placeholder="Mot de passe" required/>
+        <input class="form-button"type="submit" value="Se connecter"/>
+        <a class="form-button" th:href="@{/signup}" title="S'inscrire">S'inscrire</a>
+        <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
     </form>
-    <a th:href="@{/signup}" title="S'inscrire">S'inscrire</a>
-    <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>
 </body>
 </html>

@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
     <title>Ajouter relation</title>
 </head>
 <nav class="header">
@@ -19,13 +22,16 @@
     </ul>
 </nav>
 <body>
-<div>
-    <p>Chercher une relation</p>
-    <form th:action="@{/add_connection}" th:object="${buddyUser}" action="#" method="post">
-        <input th:value="*{email}" type="email" name="email" placeholder="Saisir une adresse mail" required/>
-        <button type="submit">Ajouter</button>
+<div class="add-connection">
+    <form class="add-form" th:action="@{/add_connection}" th:object="${buddyUser}" action="#" method="post">
+        <div>
+            <label class="add-connection-label" for="email">Chercher une relation</label></br>
+            <input class="add-connection-input" th:value="*{email}" type="email" name="email" id="email" placeholder="Saisir une adresse mail" required/>
+        </div>
+        <button class="bt-add-connection" type="submit">Ajouter</button>
     </form>
     <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
+    <p class="errorTxt" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 </div>
 </body>
 </html>
