@@ -9,15 +9,13 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-.errorTxt{
-    font-size: 1.5em;
-    color: red;
+    align-items: center;
+    gap: 16px;
 }
 
 .returnTxt{
-    font-size: 1.5em;
+   height: 50px;
+   font-size: 1.5em;
 }
 
 /* NAVBAR */
@@ -28,6 +26,7 @@ body {
     align-items: center;
     padding: 50px 25px;
     font-size: 1.5em;
+    width: 100%;
 }
 
 .header-list {
@@ -125,7 +124,6 @@ body {
     height: 64px;
 
     font-size: 1.5em;
-    font-size: 1.5em;
     font-weight: 700;
     line-height: 36px;
     text-underline-position: from-font;
@@ -134,70 +132,303 @@ body {
     box-shadow: 0px 1px 2px 0px #0000000D;
 }
 
-/* ADD RELATION PAGE */
+/*------------ADD-CO-PAGE----------------------------------------------------------*/
+/*-------------------------------------ADD-CO-PAGE---------------------------------*/
+/*----------------ADD-CO-PAGE------------------------------------------------------*/
+/*----------------------------------------------------ADD-CO-PAGE------------------*/
+/*----------------------ADD-CO-PAGE------------------------------------------------*/
 
-.add-connection{
-  margin:auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+.addConnection{
+  	margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 150px;
 }
 
-.add-form{
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
+.addConnection form{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100px;
 }
 
-.add-connection-label{
-  width: 484px;
-  height: 30px;
-
-  opacity: 0px;
-  font-family: Inter;
-  font-size: 1.5em;
-  font-weight: 500;
-  line-height: 30px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
+.addConnection div{
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    gap: 8px;
 }
 
-.bt-add-connection{
-  width: 151px;
-  height: 62px;
-  border-radius: 8 px;
-
-  background: #F69F1D;
-  box-shadow: 0px 1px 2px 0px #0000000D;
-  color: #FFFFFF;
-
-  font-size: 1.5em;
-  font-weight: 500;
-
-  text-align: center;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
+.addConnection label{
+	font-size: 1.5em;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 }
 
-.add-connection-input{
-  width: 484px;
-  height: 54px;
-  padding: 12px 16px 12px 16px;
-  border-radius: 8px;
+.addConnection button{
+	width: 151px;
+    height: 62px;
+    border-radius: 8px;
 
-  border: 1px solid #E0E0E0;
-  box-shadow: 0px 1px 2px 0px #0000000D;
+    background: #F69F1D;
+    box-shadow: 0px 1px 2px 0px #0000000D;
+    color: #FFFFFF;
 
-  font-size: 1.5em;
-  font-weight: 500;
-  line-height: 30px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
-  color: #828282;
+    font-size: 1.5em;
+    font-weight: 500;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 }
 
+.addConnection input{
+    padding: 12px;
+    height: 54px;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0px 1px 2px 0px #0000000D;
+
+    font-size: 1.5em;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #828282;
+}
+
+.addConnection p{
+    font-size: 1.5em;
+    height: 50px;
+	width: 100%;
+}
+
+/*-----------TRANSACTION-PAGE------------------------------------------------------*/
+/*-------------------------------------TRANSACTION-PAGE----------------------------*/
+/*----------------TRANSACTION-PAGE-------------------------------------------------*/
+/*--------------------------------------------------TRANSACTION-PAGE---------------*/
+/*---------------------TRANSACTION-PAGE--------------------------------------------*/
+
+.addTransaction {
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+     height: 250px;
+}
+
+.addTransaction form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: 200px;
+}
+
+.input-receiver {
+     width: 400px;
+     height: 80px;
+     padding: 8px 16px 8px 16px;
+     border-radius: 8px;
+     border: 1px solid #E0E0E0;
+     background: #FFFFFF;
+
+     font-family: Inter;
+     font-size: 24px;
+     font-weight: 400;
+     text-underline-position: from-font;
+}
+
+.inputDesc {
+     width: 380px;
+     height: 80px;
+
+     padding: 12px 16px 12px 16px;
+
+     border-radius: 8px;
+     background: #FFFFFF;
+     border: 1px solid #E0E0E0;
+     box-shadow: 0px 1px 2px 0px #0000000D;
+
+     font-family: Inter;
+     font-size: 24px;
+     font-weight: 400;
+     text-underline-position: from-font;
+     color: #000000;
+}
+
+.inputNb {
+     width: 190px;
+     height: 120px;
+     padding: 8px 16px 8px 16px;
+     border-radius: 8px;
+
+     background: #FFFFFF;
+     border: 1px solid #E0E0E0;
+
+     font-family: Inter;
+     font-size: 24px;
+     font-weight: 400;
+     line-height: 24px;
+     text-align: left;
+     text-underline-position: from-font;
+     color: #000000;
+}
+
+.addTransaction button {
+     width: 120px;
+     height: 90px;
+     padding: 14px 24px 14px 24px;
+     border-radius: 8px;
+
+     background: #207FEE;
+     box-shadow: 0px 1px 2px 0px #0000000D;
+
+     color: #FFFFFF;
+     font-family: Inter;
+     font-size: 1em;
+     font-weight: 700;
+     line-height: 24px;
+
+     text-underline-position: from-font;
+}
+
+.addTransaction p {
+	height: 50px;
+	font-size: 1.5em;
+}
+ .input-desc::placeholder,
+ .input-nb::placeholder {
+    color: black;
+}
+
+
+/*-----------------TAB-TRANSACTION-----------------*/
+/*-----------------TAB-TRANSACTION-----------------*/
+/*-----------------TAB-TRANSACTION-----------------*/
+
+.viewTransaction {
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+    padding : 15px;
+    width: 1300px;
+    height: 469px;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0px 4px 12px 0px #0000000A;
+}
+
+.viewTransaction label {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.txtTab {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.txtTab th {
+    width: 40%;
+}
+
+.dataTab th {
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 36px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    height: 60px;
+    border-top: 1px solid #E0E0E0
+}
+
+.txtTab .rightTab,
+.dataTab .rightTab {
+    text-align: right;
+  	width: 20%;
+}
+
+/*-----------PROFILE-PAGE----------------------------------------------------------*/
+/*-------------------------------------PROFILE-PAGE--------------------------------*/
+/*-----------------PROFILE-PAGE----------------------------------------------------*/
+/*---------------------------------------------------PROFILE-PAGE------------------*/
+/*----------------------PROFILE-PAGE-----------------------------------------------*/
+
+.profile {
+  	margin : auto;
+	width: 700px;
+}
+
+.profile form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.profile div {
+    display: flex;
+    align-items: center;
+  	gap: 20px;
+	height: 60px;
+}
+
+.profile label {
+    width: 150px;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 28px;
+	text-align: left;
+	text-underline-position: from-font;
+	text-decoration-skip-ink: none;
+}
+
+.profile input {
+    width: 200px;
+    border: none;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 28px;
+	text-align: left;
+	text-underline-position: from-font;
+	text-decoration-skip-ink: none;
+}
+
+.profile input::placeholder {
+  	color: #000000;
+}
+
+.profile button {
+  	width: 147px;
+	height: 64px;
+	border-radius: 8px;
+    background: #F69F1D;
+	box-shadow: 0px 1px 2px 0px #0000000D;
+
+	font-size: 1.5em;
+	font-weight: 700;
+	line-height: 36px;
+  	color: #FFFFFF;
+	text-underline-position: from-font;
+	text-decoration-skip-ink: none;
+}
+
+.profile p {
+	height: 60px;
+    display: flex;
+    align-items: center;
+}

@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
     <title>Profil</title>
 </head>
 <body>
@@ -19,23 +22,26 @@
         </li>
     </ul>
 </nav>
-<div>
+<div class="profile">
     <form action="#" th:action="@{/profile}" th:object="${buddyUser}" method="post">
         <div>
             <label for="username">Username</label>
             <input type="text" id="username" th:field="*{username}">
+            <p>></p>
         </div>
         <div>
             <label for="email">Mail</label>
             <input type="email" id="email" class="form-control" th:field="*{email}" />
+            <p>></p>
         </div>
         <div>
-            <label for="password">Mot de passe:</label>
-            <input type="password" id="password" th:field="*{password}" />
+            <label for="password">Mot de passe</label>
+            <input type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" id="password" th:field="*{password}" />
+            <p>></p>
+            <button type="submit">Modifier</button>
         </div>
-        <button type="submit">Modifier</button>
+        <p class="returnMessage" th:if="${returnMessage}" th:text="${returnMessage}">BLABLA</p>
     </form>
-    <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>
 </body>
 </html>

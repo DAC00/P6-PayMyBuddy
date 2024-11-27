@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
     <title>Transférer</title>
 </head>
 <body>
@@ -19,41 +22,38 @@
         </li>
     </ul>
 </nav>
-<div>
-    <form th:action="@{/transaction}" method="post">
-        <select name="receiver" required>
+<div class="addTransaction">
+    <form  th:action="@{/transaction}" method="post">
+        <select class="input-receiver" name="receiver" required>
             <option selected disabled value="">Sélectionner une relation</option>
             <option th:each="user : ${buddyUser}"
                     th:value="${user.email}"
                     th:text="${user.username}"></option>
         </select>
-        <input type="text" name="description" placeholder="Description" required>
-        <input type="number" name="amount" min="0" placeholder="0€" required>
+        <input class="inputDesc" type="text" name="description" placeholder="Description" required>
+        <input class="inputNb" type="number" step="0.01" name="amount" min="0" placeholder="0€" required>
         <button type="submit">Payer</button>
     </form>
     <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
 </div>
-
-<div>
+<div class="viewTransaction">
     <label>Mes transactions</label>
     <table>
         <thead>
-        <tr>
+        <tr class="txtTab">
             <th>Relations</th>
             <th>Description</th>
-            <th>Montant</th>
+            <th class="rightTab">Montant</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="tranSend : ${transactionSend}">
+        <tr class="dataTab" th:each="tranSend : ${transactionSend}">
             <th th:text="${tranSend.receiver.username}"></th>
             <th th:text="${tranSend.description}"></th>
-            <th th:text="${tranSend.amount}"></th>
+            <th class="rightTab" th:text="${tranSend.amount} + '€'"></th>
         </tr>
         </tbody>
     </table>
-
 </div>
-
 </body>
 </html>

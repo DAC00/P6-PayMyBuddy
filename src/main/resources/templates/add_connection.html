@@ -22,16 +22,15 @@
     </ul>
 </nav>
 <body>
-<div class="add-connection">
-    <form class="add-form" th:action="@{/add_connection}" th:object="${buddyUser}" action="#" method="post">
+<div class="addConnection">
+    <form th:action="@{/add_connection}" th:object="${buddyUser}" action="#" method="post">
         <div>
-            <label class="add-connection-label" for="email">Chercher une relation</label></br>
-            <input class="add-connection-input" th:value="*{email}" type="email" name="email" id="email" placeholder="Saisir une adresse mail" required/>
+            <label for="email">Chercher une relation</label>
+            <input th:value="*{email}" type="email" name="email" id="email" placeholder="Saisir une adresse mail" required/>
         </div>
-        <button class="bt-add-connection" type="submit">Ajouter</button>
+        <button type="submit">Ajouter</button>
     </form>
     <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
-    <p class="errorTxt" th:if="${errorMessage}" th:text="${errorMessage}"></p>
 </div>
 </body>
 </html>
