@@ -38,10 +38,10 @@ public class TransactionController {
                                  @RequestParam("amount") double amount, Model model) {
         try {
             transactionService.addTransaction(SecurityContextHolder.getContext().getAuthentication().getName(), receiver, description, amount);
-            model.addAttribute("returnMessage", "Transaction sent.");
+            model.addAttribute("returnMessage", "Transaction envoyée.");
             fillTransactionList(model);
         } catch (BuddyUserDoesNotExistException e) {
-            model.addAttribute("returnMessage", "Error.");
+            model.addAttribute("returnMessage", "Erreur.");
             logger.error(e.getMessage());
         }
         return "transaction";

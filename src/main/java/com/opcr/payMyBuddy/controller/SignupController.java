@@ -22,14 +22,14 @@ public class SignupController {
 
     @GetMapping("/signup")
     public String signupView(Model model) {
-        model.addAttribute("buddyUser",new BuddyUser());
+        model.addAttribute("buddyUser", new BuddyUser());
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signup(@ModelAttribute("buddyUser") BuddyUser newBuddyUser, Model model){
+    public String signup(@ModelAttribute("buddyUser") BuddyUser newBuddyUser, Model model) {
         try {
-            buddyUserService.addUser(newBuddyUser.getUsername(),newBuddyUser.getEmail(),newBuddyUser.getPassword());
+            buddyUserService.addUser(newBuddyUser.getUsername(), newBuddyUser.getEmail(), newBuddyUser.getPassword());
             logger.info("New user created : %s".formatted(newBuddyUser.getEmail()));
             return "redirect:/login?signup=true";
         } catch (EmailAlreadyExistsException e) {
