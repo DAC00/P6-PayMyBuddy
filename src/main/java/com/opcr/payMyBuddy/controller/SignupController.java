@@ -31,7 +31,7 @@ public class SignupController {
         try {
             buddyUserService.addUser(newBuddyUser.getUsername(), newBuddyUser.getEmail(), newBuddyUser.getPassword());
             logger.info("New user created : %s".formatted(newBuddyUser.getEmail()));
-            return "redirect:/login?signup=true";
+            return "redirect:/login";
         } catch (EmailAlreadyExistsException e) {
             model.addAttribute("returnMessage", "Email already taken.");
             logger.error(e.getMessage());

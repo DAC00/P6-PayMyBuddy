@@ -16,7 +16,7 @@
         <input class="login-item" type="email" placeholder="Mail" required th:field="*{email}"/>
         <input class="login-item" type="password" placeholder="Mot de passe" required th:field="*{password}"/>
         <button class="form-button" type="submit">S'inscrire</button>
-        <a class="form-button" th:href="@{/login}" title="Se connecter">Se connecter</a>
+        <a class="form-button" th:href="@{/login}" title="Retour">Retour</a>
         <p th:if="${returnMessage}" th:text="${returnMessage}"></p>
     </form>
 </div>
