@@ -1,7 +1,6 @@
 package com.opcr.payMyBuddy.service;
 
-import com.opcr.payMyBuddy.exception.EmailAlreadyExistsException;
-import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
+import com.opcr.payMyBuddy.exception.*;
 import com.opcr.payMyBuddy.model.BuddyUser;
 import com.opcr.payMyBuddy.repository.BuddyUserRepository;
 import org.junit.jupiter.api.Test;
@@ -77,6 +76,14 @@ public class BuddyUserServiceTest {
     }
 
     @Test
+    public void updateUserWithNoNewInformationTest() {
+        String userEmail = "dave@mail.com";
+        NoInfoToUpdateException exception = assertThrows(NoInfoToUpdateException.class,
+                () -> userService.updateUser(userEmail, "", "", ""));
+        assertEquals("No information to update for : %s.".formatted(userEmail), exception.getMessage());
+    }
+
+    @Test
     public void addConnectionToUserTest() throws Exception {
         userService.addUser("Test", "test@test.test", "test");
         BuddyUser buddyUserOne = buddyUserRepository.findByUsername("Test");
@@ -106,5 +113,29 @@ public class BuddyUserServiceTest {
         BuddyUserDoesNotExistException exception = assertThrows(BuddyUserDoesNotExistException.class,
                 () -> userService.addConnectionToUser("dave@mail.com", emailToConnect));
         assertEquals("BuddyUser to connect with does not found : %s.".formatted(emailToConnect), exception.getMessage());
+    }
+
+    @Test
+    public void addConnectionWhenTheConnectionAlreadyExistTest() {
+        String emailToConnect = "alice@mail.com";
+        BuddyUserAlreadyConnectedWithException exception = assertThrows(BuddyUserAlreadyConnectedWithException.class,
+                () -> userService.addConnectionToUser("bob@mail.com", emailToConnect));
+        assertEquals("BuddyUser already connected with : %s.".formatted(emailToConnect), exception.getMessage());
+    }
+
+    @Test
+    public void addConnectionToYourSelfTest() {
+        String email = "dave@mail.com";
+        BuddyUserConnectWithHimselfException exception = assertThrows(BuddyUserConnectWithHimselfException.class,
+                () -> userService.addConnectionToUser(email, email));
+        assertEquals("BuddyUser try to connect with himself : %s".formatted(email), exception.getMessage());
+    }
+
+    @Test
+    public void getBuddyUserTest(){
+        String email = "dave@mail.com";
+        BuddyUser buddyUser = userService.getBuddyUser(email);
+        assertEquals(email,buddyUser.getEmail());
+        assertEquals("dave",buddyUser.getUsername());
     }
 }

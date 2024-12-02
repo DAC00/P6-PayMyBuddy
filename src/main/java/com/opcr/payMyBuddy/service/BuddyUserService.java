@@ -1,9 +1,6 @@
 package com.opcr.payMyBuddy.service;
 
-import com.opcr.payMyBuddy.exception.BuddyUserAlreadyConnectedWithException;
-import com.opcr.payMyBuddy.exception.BuddyUserConnectWithHimselfException;
-import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
-import com.opcr.payMyBuddy.exception.EmailAlreadyExistsException;
+import com.opcr.payMyBuddy.exception.*;
 import com.opcr.payMyBuddy.model.BuddyUser;
 import com.opcr.payMyBuddy.repository.BuddyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +48,11 @@ public class BuddyUserService {
      * @param updatePassword  new password.
      * @throws EmailAlreadyExistsException    if the email is already used.
      * @throws BuddyUserDoesNotExistException if the BuddyUser doesn't exist.
+     * @throws NoInfoToUpdateException        if no new information.
      */
     @Transactional
-    public void updateUser(String userEmail, String updatedUserName, String updatedEmail, String updatePassword) throws EmailAlreadyExistsException, BuddyUserDoesNotExistException {
+    public void updateUser(String userEmail, String updatedUserName, String updatedEmail, String updatePassword)
+            throws EmailAlreadyExistsException, BuddyUserDoesNotExistException, NoInfoToUpdateException {
         BuddyUser buddyUser = buddyUserRepository.findByEmail(userEmail);
         if (buddyUser == null) {
             throw new BuddyUserDoesNotExistException("BuddyUser does not exist : %s.".formatted(userEmail));
@@ -61,10 +60,11 @@ public class BuddyUserService {
             if (doesUserExist(updatedEmail) && buddyUserRepository.findByEmail(updatedEmail).getId() != buddyUser.getId()) {
                 throw new EmailAlreadyExistsException("Email already taken : %s.".formatted(updatedEmail));
             } else {
-                if (!updatedUserName.equals(buddyUser.getUsername()) && !updatedUserName.isBlank()
-                        || !updatedEmail.equals(buddyUser.getEmail()) && !updatedEmail.isBlank()
-                        || !passwordEncoder.matches(updatePassword, buddyUser.getPassword()) && !updatePassword.isBlank()) {
-
+                if ((updatedUserName.equals(buddyUser.getUsername()) || updatedUserName.isBlank())
+                        && (updatedEmail.equals(buddyUser.getEmail()) || updatedEmail.isBlank())
+                        && (passwordEncoder.matches(updatePassword, buddyUser.getPassword()) || updatePassword.isBlank())) {
+                    throw new NoInfoToUpdateException("No information to update for : %s.".formatted(userEmail));
+                } else {
                     if (!updatedUserName.isBlank()) buddyUser.setUsername(updatedUserName);
                     if (!updatedEmail.isBlank()) buddyUser.setEmail(updatedEmail);
                     if (!updatePassword.isBlank()) buddyUser.setPassword(passwordEncoder.encode(updatePassword));

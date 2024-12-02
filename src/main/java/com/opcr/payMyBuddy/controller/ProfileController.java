@@ -2,6 +2,7 @@ package com.opcr.payMyBuddy.controller;
 
 import com.opcr.payMyBuddy.exception.BuddyUserDoesNotExistException;
 import com.opcr.payMyBuddy.exception.EmailAlreadyExistsException;
+import com.opcr.payMyBuddy.exception.NoInfoToUpdateException;
 import com.opcr.payMyBuddy.model.BuddyUser;
 import com.opcr.payMyBuddy.service.BuddyUserService;
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,9 @@ public class ProfileController {
         } catch (EmailAlreadyExistsException e) {
             logger.error(e.getMessage());
             model.addAttribute("returnMessage", "Le mail est déjà pris.");
+        } catch (NoInfoToUpdateException e) {
+            logger.error(e.getMessage());
+            model.addAttribute("returnMessage", "Il n'y a rien à mettre à jour.");
         } catch (BuddyUserDoesNotExistException e) {
             logger.error(e.getMessage());
         }
