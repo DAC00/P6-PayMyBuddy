@@ -1,7 +1,26 @@
 # P6-PayMyBuddy
 
-    MPD
+# bdd.env
+The application need a file named "bdd.env" in the project root directory, with four variables : DB_URL, DB_URL_TEST, DB_USERNAME and DB_PASSWORD
 
+example : 
+
+DB_URL=jdbc:mysql://localhost:3306/p6_paymybuddy?serverTimezone=UTC
+
+DB_URL_TEST=jdbc:mysql://localhost:3306/p6_paymybuddy_test?serverTimezone=UTC
+
+DB_USERNAME=username
+
+DB_PASSWORD=password
+
+# SQL
+Two scripts below for the database, one for the app and the other one for testing.
+
+[p6_paymybuddy_script.sql](sql%2Fp6_paymybuddy_script.sql)
+
+[p6_paymybuddy_test_script.sql](sql%2Fp6_paymybuddy_test_script.sql)
+
+# MPD
     USERS : 
     id integer (PK)
     username varchar(55)
