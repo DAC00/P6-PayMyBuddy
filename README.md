@@ -40,3 +40,9 @@ Two scripts below for the database, one for the app and the other one for testin
     id_second_user integer (FK)
 
 ![MPD.png](MPD.png)
+
+# USER in Database
+
+mail : alice@mail.com
+
+password : pass1
